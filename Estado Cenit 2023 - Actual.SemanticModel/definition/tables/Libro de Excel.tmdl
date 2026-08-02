@@ -1,6 +1,28 @@
 table 'Libro de Excel'
 	lineageTag: f7fce06f-2cba-43bb-9aa9-3549e22a9c48
 
+	measure 'Total Facturado' = SUM('Libro de Excel'[Facturado])
+		formatString: \$\ #,0.###############;-\$\ #,0.###############;\$\ #,0.###############
+		lineageTag: 90cf10be-84f5-406d-a3c8-5f1d27a1c9dc
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-CO"}
+
+	measure 'Total lecturas' = COUNTROWS('Libro de Excel')
+		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
+		lineageTag: f3caa204-4050-46a3-ba50-e4eb7fcb3980
+
+	measure 'Facturación RAPIDAS Y FURIOSAS' = CALCULATE([Total Facturado], 'Libro de Excel'[Modulo] = "RAPIDAS Y FURIOSAS")
+		formatString: \$\ #,0.###############;-\$\ #,0.###############;\$\ #,0.###############
+		lineageTag: 3c41391c-4a97-444f-97f1-d7da85b65271
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-CO"}
+
+	measure 'Modulo Promedio' = DIVIDE([Total Facturado], [Total lecturas])
+		formatString: \$\ #,0.###############;-\$\ #,0.###############;\$\ #,0.###############
+		lineageTag: 8b8baf03-035c-4cc4-ba19-0579b3e76fa8
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-CO"}
+
 	column Fecha
 		dataType: dateTime
 		formatString: Long Date

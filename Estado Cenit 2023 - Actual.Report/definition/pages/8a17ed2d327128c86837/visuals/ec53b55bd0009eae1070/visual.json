@@ -1,76 +1,33 @@
 {
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
-  "name": "fa4b63828975800b08ca",
+  "name": "ec53b55bd0009eae1070",
   "position": {
-    "x": 0,
-    "y": 118.61475997133986,
-    "z": 4000,
-    "height": 276.36016240745164,
-    "width": 415.76307618820158,
-    "tabOrder": 1002
+    "x": 22.0109863864342,
+    "y": 498.91569142584189,
+    "z": 10003,
+    "height": 103.9407690470504,
+    "width": 376.6324337234297,
+    "tabOrder": 1012
   },
   "visual": {
-    "visualType": "donutChart",
+    "visualType": "cardVisual",
     "query": {
       "queryState": {
-        "Category": {
+        "Data": {
           "projections": [
             {
               "field": {
-                "Column": {
+                "Measure": {
                   "Expression": {
                     "SourceRef": {
                       "Entity": "Libro de Excel"
                     }
                   },
-                  "Property": "Modulo"
+                  "Property": "Total lecturas"
                 }
               },
-              "queryRef": "Libro de Excel.Modulo",
-              "nativeQueryRef": "Modulo",
-              "active": true
-            }
-          ]
-        },
-        "Y": {
-          "projections": [
-            {
-              "field": {
-                "Aggregation": {
-                  "Expression": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "Libro de Excel"
-                        }
-                      },
-                      "Property": "Eficiencia"
-                    }
-                  },
-                  "Function": 0
-                }
-              },
-              "queryRef": "Sum(Libro de Excel.Eficiencia)",
-              "nativeQueryRef": "Suma de Eficiencia"
-            },
-            {
-              "field": {
-                "Aggregation": {
-                  "Expression": {
-                    "Column": {
-                      "Expression": {
-                        "SourceRef": {
-                          "Entity": "Libro de Excel"
-                        }
-                      },
-                      "Property": "Facturado"
-                    }
-                  },
-                  "Function": 0
-                }
-              },
-              "queryRef": "Sum(Libro de Excel.Facturado)",
-              "nativeQueryRef": "Suma de Facturado"
+              "queryRef": "Libro de Excel.Total Facturas",
+              "nativeQueryRef": "Total lecturas"
             }
           ]
         }
@@ -79,18 +36,13 @@
         "sort": [
           {
             "field": {
-              "Aggregation": {
+              "Measure": {
                 "Expression": {
-                  "Column": {
-                    "Expression": {
-                      "SourceRef": {
-                        "Entity": "Libro de Excel"
-                      }
-                    },
-                    "Property": "Eficiencia"
+                  "SourceRef": {
+                    "Entity": "Libro de Excel"
                   }
                 },
-                "Function": 0
+                "Property": "Total lecturas"
               }
             },
             "direction": "Descending"
@@ -100,36 +52,74 @@
       }
     },
     "objects": {
-      "legend": [
+      "shapeCustomRectangle": [
         {
           "properties": {
-            "position": {
+            "tileShape": {
               "expr": {
                 "Literal": {
-                  "Value": "'RightCenter'"
+                  "Value": "'rectangleRoundedByPixel'"
                 }
               }
             },
-            "showTitle": {
+            "rectangleRoundedCurveCustomStyle": {
               "expr": {
                 "Literal": {
                   "Value": "true"
                 }
               }
             }
+          },
+          "selector": {
+            "id": "default"
           }
         }
       ],
-      "labels": [
+      "padding": [
         {
           "properties": {
-            "labelStyle": {
+            "paddingIndividual": {
               "expr": {
                 "Literal": {
-                  "Value": "'Percent of total'"
+                  "Value": "false"
                 }
               }
             }
+          },
+          "selector": {
+            "id": "default"
+          }
+        }
+      ],
+      "accentBar": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          },
+          "selector": {
+            "id": "default"
+          }
+        }
+      ],
+      "value": [
+        {
+          "properties": {
+            "labelDisplayUnits": {
+              "expr": {
+                "Literal": {
+                  "Value": "1D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Libro de Excel.Total Facturas"
           }
         }
       ]
@@ -141,7 +131,7 @@
             "show": {
               "expr": {
                 "Literal": {
-                  "Value": "true"
+                  "Value": "false"
                 }
               }
             },
@@ -180,6 +170,13 @@
               "expr": {
                 "Literal": {
                   "Value": "'center'"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Total Facturación'"
                 }
               }
             }
@@ -229,6 +226,18 @@
                   "Value": "0D"
                 }
               }
+            },
+            "color": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "ThemeDataColor": {
+                      "ColorId": 7,
+                      "Percent": -0.25
+                    }
+                  }
+                }
+              }
             }
           }
         }
@@ -240,6 +249,26 @@
               "expr": {
                 "Literal": {
                   "Value": "1D"
+                }
+              }
+            },
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ],
+      "dropShadow": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
                 }
               }
             }
