@@ -1,0 +1,145 @@
+table 'Libro de Excel'
+	lineageTag: f7fce06f-2cba-43bb-9aa9-3549e22a9c48
+
+	column Fecha
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: 541350ce-9dd6-48a3-88a0-f92ef9657f1c
+		summarizeBy: none
+		sourceColumn: Fecha
+
+		variation Variación
+			isDefault
+			relationship: 3ba26907-6223-47c5-bc3d-448b82ad8d9c
+			defaultHierarchy: LocalDateTable_eb14df64-bf32-47c7-a3af-9531ad1154f9.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Modulo
+		dataType: string
+		lineageTag: e794221b-e2e7-4003-977c-a56e6b684a97
+		summarizeBy: none
+		sourceColumn: Modulo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Unidades
+		dataType: int64
+		formatString: 0
+		lineageTag: 0f35143d-4d33-4361-be7e-99df36b810ab
+		summarizeBy: sum
+		sourceColumn: Unidades
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Minutos Instalados'
+		dataType: int64
+		formatString: 0
+		lineageTag: 12716647-74b9-42f4-941a-2faeb820f21d
+		summarizeBy: sum
+		sourceColumn: Minutos Instalados
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Minutos Producidos'
+		dataType: int64
+		formatString: 0
+		lineageTag: 1cbacb35-b469-407e-8cb3-b50b0c9f3095
+		summarizeBy: sum
+		sourceColumn: Minutos Producidos
+
+		annotation SummarizationSetBy = Automatic
+
+	column Facturado
+		dataType: decimal
+		formatString: \$\ #,0.###############;-\$\ #,0.###############;\$\ #,0.###############
+		lineageTag: bb027c04-ee54-4938-9b09-17094d9a7fec
+		summarizeBy: sum
+		sourceColumn: Facturado
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-CO"}
+
+	column Equilibrio
+		dataType: decimal
+		formatString: \$\ #,0.###############;-\$\ #,0.###############;\$\ #,0.###############
+		lineageTag: c759502c-afa2-4e4f-9131-abc3d36488a3
+		summarizeBy: sum
+		sourceColumn: Equilibrio
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-CO"}
+
+	column Eficiencia
+		dataType: double
+		formatString: 0\ %;-0\ %;0\ %
+		lineageTag: b789e06e-05d8-4a0f-b19a-b03a9d845e61
+		summarizeBy: sum
+		sourceColumn: Eficiencia
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Libro de Excel' = m
+		mode: import
+		source =
+				let
+				  Origen = Excel.Workbook(File.Contents("C:\Users\TALLER-TECNOLIDER\OneDrive\Escritorio\Study\Power BI\Listas Excel\Productividad Cenit.xlsx"), null, true),
+				    #"Filas filtradas" = Table.SelectRows(Origen, each true),
+				    #"Filas superiores quitadas" = Table.Skip(#"Filas filtradas",49),
+				    #"Filas superiores quitadas1" = Table.Skip(#"Filas superiores quitadas",1),
+				    #"Otras columnas quitadas" = Table.SelectColumns(#"Filas superiores quitadas1",{"Name", "Data"}),
+				    #"Se expandió Data" = Table.ExpandTableColumn(#"Otras columnas quitadas", "Data", {"Column1", "Column2", "Column3", "Column4", "Column5", "Column6", "Column7", "Column8", "Column9", "Column10", "Column11", "Column12", "Column13", "Column14", "Column15", "Column16"}, {"Column1", "Column2", "Column3", "Column4", "Column5", "Column6", "Column7", "Column8", "Column9", "Column10", "Column11", "Column12", "Column13", "Column14", "Column15", "Column16"}),
+				    #"Encabezados promovidos" = Table.PromoteHeaders(#"Se expandió Data", [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"JUNIO5-10", type date}, {"LUNES", type any}, {"Modulo", type text}, {"Cantidad", type any}, {"Tiempo Instalado", type any}, {"Minutos Producidos", type any}, {"MINUTOS SIN PRODUCIR", type any}, {"Productividad ", type any}, {"SUPERVISORA", type any}, {"TIEMPO INPRODUCTIVO", type any}, {"REFERENCIA", type any}, {"Column12", type any}, {"FACTURADO MODULO", type any}, {"FACTURACION ESPERADA", type any}, {"PUNTO EQUILIBRIOPLANTA", type any}, {"FACTURADO PLANTA", type any}, {"DIFERENCIA", type any}}),
+				    #"Columnas quitadas" = Table.RemoveColumns(#"Tipo cambiado",{"JUNIO5-10"}),
+				    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Columnas quitadas",{{"LUNES", "Fecha"}}),
+				    #"Columnas quitadas1" = Table.RemoveColumns(#"Columnas con nombre cambiado",{"REFERENCIA", "SUPERVISORA", "TIEMPO INPRODUCTIVO", "Column12", "PUNTO EQUILIBRIOPLANTA", "FACTURADO PLANTA", "DIFERENCIA", "MINUTOS SIN PRODUCIR"}),
+				    #"Tipo cambiado1" = Table.TransformColumnTypes(#"Columnas quitadas1",{{"Fecha", type date}}),
+				    #"Errores quitados" = Table.RemoveRowsWithErrors(#"Tipo cambiado1", {"Fecha"}),
+				    #"Filas filtradas1" = Table.SelectRows(#"Errores quitados", each ([Fecha] <> null)),
+				    #"Columnas con nombre cambiado1" = Table.RenameColumns(#"Filas filtradas1",{{"Cantidad", "Unidades"}}),
+				    #"Tipo cambiado2" = Table.TransformColumnTypes(#"Columnas con nombre cambiado1",{{"Unidades", Int64.Type}, {"Tiempo Instalado", Int64.Type}}),
+				    #"Columnas con nombre cambiado2" = Table.RenameColumns(#"Tipo cambiado2",{{"Tiempo Instalado", "Minutos Instalados"}, {"Productividad ", "Eficiencia"}, {"FACTURADO MODULO", "Facturado"}, {"FACTURACION ESPERADA", "Punto Equilibrio"}}),
+				    #"Tipo cambiado3" = Table.TransformColumnTypes(#"Columnas con nombre cambiado2",{{"Minutos Producidos", Int64.Type}, {"Eficiencia", Percentage.Type}}),
+				    #"Errores quitados1" = Table.RemoveRowsWithErrors(#"Tipo cambiado3", {"Unidades"}),
+				    #"Errores quitados2" = Table.RemoveRowsWithErrors(#"Errores quitados1", {"Minutos Instalados"}),
+				    #"Errores quitados3" = Table.RemoveRowsWithErrors(#"Errores quitados2", {"Minutos Producidos"}),
+				    #"Errores quitados4" = Table.RemoveRowsWithErrors(#"Errores quitados3", {"Eficiencia"}),
+				    #"Tipo cambiado4" = Table.TransformColumnTypes(#"Errores quitados4",{{"Facturado", Currency.Type}}),
+				    #"Errores quitados5" = Table.RemoveRowsWithErrors(#"Tipo cambiado4", {"Facturado"}),
+				    #"Tipo cambiado5" = Table.TransformColumnTypes(#"Errores quitados5",{{"Punto Equilibrio", Currency.Type}}),
+				    #"Errores quitados6" = Table.RemoveRowsWithErrors(#"Tipo cambiado5", {"Punto Equilibrio"}),
+				    #"Filas filtradas2" = Table.SelectRows(#"Errores quitados6", each ([Punto Equilibrio] <> null and [Punto Equilibrio] <> "")),
+				    #"Filas ordenadas" = Table.Sort(#"Filas filtradas2",{{"Facturado", Order.Descending}}),
+				    #"Filas filtradas3" = Table.SelectRows(#"Filas ordenadas", each ([Eficiencia] <> null and [Eficiencia] <> "")),
+				    #"Filas ordenadas1" = Table.Sort(#"Filas filtradas3",{{"Eficiencia", Order.Descending}}),
+				    #"Valor reemplazado" = Table.ReplaceValue(#"Filas ordenadas1",91,91,Replacer.ReplaceValue,{"Eficiencia"}),
+				    #"Tipo cambiado6" = Table.TransformColumnTypes(#"Valor reemplazado",{{"Eficiencia", Percentage.Type}}),
+				    #"Filas filtradas4" = Table.SelectRows(#"Tipo cambiado6", each [Unidades] <> null and [Unidades] <> ""),
+				    #"Filas filtradas5" = Table.SelectRows(#"Filas filtradas4", each [Minutos Instalados] <> null and [Minutos Instalados] <> ""),
+				    #"Filas filtradas6" = Table.SelectRows(#"Filas filtradas5", each [Minutos Producidos] <> null and [Minutos Producidos] <> ""),
+				    #"Valor reemplazado1" = Table.ReplaceValue(#"Filas filtradas6","RAPIDAS Y FURIOSAS","RAPIDAS Y FURIOSAS",Replacer.ReplaceValue,{"Modulo"}),
+				    #"Valor reemplazado2" = Table.ReplaceValue(#"Valor reemplazado1","JENNI","JENNY",Replacer.ReplaceValue,{"Modulo"}),
+				    #"Valor reemplazado3" = Table.ReplaceValue(#"Valor reemplazado2","KATHE","KATHERINE",Replacer.ReplaceValue,{"Modulo"}),
+				    #"Valor reemplazado4" = Table.ReplaceValue(#"Valor reemplazado3","ANYI","ANGIE",Replacer.ReplaceValue,{"Modulo"}),
+				    #"Filas filtradas7" = Table.SelectRows(#"Valor reemplazado4", each true),
+				    #"Valor reemplazado5" = Table.ReplaceValue(#"Filas filtradas7","SARAY","REV SARAY",Replacer.ReplaceText,{"Modulo"}),
+				    #"Filas filtradas8" = Table.SelectRows(#"Valor reemplazado5", each true),
+				    #"Tipo cambiado7" = Table.TransformColumnTypes(#"Filas filtradas8",{{"Eficiencia", Percentage.Type}}),
+				    #"Filas filtradas9" = Table.SelectRows(#"Tipo cambiado7", each true),
+				    #"Tipo cambiado8" = Table.TransformColumnTypes(#"Filas filtradas9",{{"Eficiencia", Percentage.Type}}),
+				    #"Personalizada agregada" = Table.AddColumn(#"Tipo cambiado8", "Personalizado", each if [Eficiencia] > 5.0 then [Eficiencia] / 100 else [Eficiencia]),
+				    #"Tipo cambiado9" = Table.TransformColumnTypes(#"Personalizada agregada",{{"Personalizado", Percentage.Type}}),
+				    #"Columnas quitadas2" = Table.RemoveColumns(#"Tipo cambiado9",{"Eficiencia"}),
+				    #"Columnas con nombre cambiado3" = Table.RenameColumns(#"Columnas quitadas2",{{"Personalizado", "Eficiencia"}, {"Punto Equilibrio", "Equilibrio"}})
+				in
+				    #"Columnas con nombre cambiado3"
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

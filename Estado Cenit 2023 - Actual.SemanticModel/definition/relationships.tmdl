@@ -1,0 +1,5 @@
+relationship 3ba26907-6223-47c5-bc3d-448b82ad8d9c
+	joinOnDateBehavior: datePartOnly
+	fromColumn: 'Libro de Excel'.Fecha
+	toColumn: LocalDateTable_eb14df64-bf32-47c7-a3af-9531ad1154f9.Date
+

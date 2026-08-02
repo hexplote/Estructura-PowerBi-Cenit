@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "Estado Cenit 2023 - Actual"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "2bdb9078-dba9-484b-a2b2-8039621ffe52"
+  }
+}

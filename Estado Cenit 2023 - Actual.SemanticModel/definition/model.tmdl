@@ -1,0 +1,21 @@
+model Model
+	culture: es-ES
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: es-CO
+	valueFilterBehavior: independent
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation __PBI_TimeIntelligenceEnabled = 1
+
+annotation PBI_QueryOrder = ["Libro de Excel"]
+
+annotation PBI_ProTooling = ["DevMode"]
+
+ref table 'Libro de Excel'
+ref table DateTableTemplate_12caa105-248d-499b-ba0a-71ad52407de0
+ref table LocalDateTable_eb14df64-bf32-47c7-a3af-9531ad1154f9
+
+ref cultureInfo es-ES
+
