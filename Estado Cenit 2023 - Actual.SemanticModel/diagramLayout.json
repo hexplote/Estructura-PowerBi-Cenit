@@ -10,10 +10,23 @@
       "nodes": [
         {
           "location": {
-            "x": 0,
-            "y": 0
+            "x": 509,
+            "y": 9
           },
-          "nodeIndex": "Libro de Excel",
+          "nodeIndex": "Sica",
+          "nodeLineageTag": "92147552-da50-4d7c-b849-bcb47c8cce6b",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 231,
+            "y": 12
+          },
+          "nodeIndex": "Principal Cenit",
           "nodeLineageTag": "f7fce06f-2cba-43bb-9aa9-3549e22a9c48",
           "size": {
             "height": 272,

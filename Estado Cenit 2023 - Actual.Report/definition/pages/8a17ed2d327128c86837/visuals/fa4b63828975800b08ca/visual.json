@@ -5,8 +5,8 @@
     "x": 0,
     "y": 118.61475997133986,
     "z": 4000,
-    "height": 276.36016240745164,
-    "width": 415.76307618820158,
+    "height": 357.0671124910437,
+    "width": 419.43157391927394,
     "tabOrder": 1002
   },
   "visual": {
@@ -20,7 +20,7 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Libro de Excel"
+                      "Entity": "Principal Cenit"
                     }
                   },
                   "Property": "Modulo"
@@ -41,7 +41,7 @@
                     "Column": {
                       "Expression": {
                         "SourceRef": {
-                          "Entity": "Libro de Excel"
+                          "Entity": "Principal Cenit"
                         }
                       },
                       "Property": "Eficiencia"
@@ -60,7 +60,7 @@
                     "Column": {
                       "Expression": {
                         "SourceRef": {
-                          "Entity": "Libro de Excel"
+                          "Entity": "Principal Cenit"
                         }
                       },
                       "Property": "Facturado"
@@ -84,10 +84,10 @@
                   "Column": {
                     "Expression": {
                       "SourceRef": {
-                        "Entity": "Libro de Excel"
+                        "Entity": "Principal Cenit"
                       }
                     },
-                    "Property": "Eficiencia"
+                    "Property": "Facturado"
                   }
                 },
                 "Function": 0
@@ -95,8 +95,7 @@
             },
             "direction": "Descending"
           }
-        ],
-        "isDefaultSort": true
+        ]
       }
     },
     "objects": {

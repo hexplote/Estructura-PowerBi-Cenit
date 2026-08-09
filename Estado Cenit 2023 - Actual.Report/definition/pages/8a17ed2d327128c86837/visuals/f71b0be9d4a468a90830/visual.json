@@ -24,7 +24,7 @@
                         "PropertyVariationSource": {
                           "Expression": {
                             "SourceRef": {
-                              "Entity": "Libro de Excel"
+                              "Entity": "Principal Cenit"
                             }
                           },
                           "Name": "Variación",
@@ -74,6 +74,11 @@
               }
             }
           }
+        }
+      ],
+      "general": [
+        {
+          "properties": {}
         }
       ]
     },

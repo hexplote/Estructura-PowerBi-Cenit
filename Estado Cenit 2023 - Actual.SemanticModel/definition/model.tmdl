@@ -9,13 +9,15 @@ model Model
 
 annotation __PBI_TimeIntelligenceEnabled = 1
 
-annotation PBI_QueryOrder = ["Libro de Excel"]
+annotation PBI_QueryOrder = ["Principal Cenit","Sica"]
 
 annotation PBI_ProTooling = ["DevMode"]
 
-ref table 'Libro de Excel'
+ref table 'Principal Cenit'
 ref table DateTableTemplate_12caa105-248d-499b-ba0a-71ad52407de0
 ref table LocalDateTable_eb14df64-bf32-47c7-a3af-9531ad1154f9
+ref table Sica
+ref table LocalDateTable_70335bb3-3fa0-4f42-ae95-de0783db98d8
 
 ref cultureInfo es-ES
 

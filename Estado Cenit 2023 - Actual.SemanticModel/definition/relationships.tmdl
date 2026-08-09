@@ -1,5 +1,10 @@
 relationship 3ba26907-6223-47c5-bc3d-448b82ad8d9c
 	joinOnDateBehavior: datePartOnly
-	fromColumn: 'Libro de Excel'.Fecha
+	fromColumn: 'Principal Cenit'.Fecha
 	toColumn: LocalDateTable_eb14df64-bf32-47c7-a3af-9531ad1154f9.Date
+
+relationship 7554d8fc-554b-4553-9b7e-905c99b6a143
+	joinOnDateBehavior: datePartOnly
+	fromColumn: Sica.Fecha
+	toColumn: LocalDateTable_70335bb3-3fa0-4f42-ae95-de0783db98d8.Date
 

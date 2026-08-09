@@ -3,7 +3,7 @@
   "name": "630d6cdbd18987eb178c",
   "position": {
     "x": 22.0109863864342,
-    "y": 394.97492237879152,
+    "y": 475.68187246238358,
     "z": 10000,
     "height": 103.9407690470504,
     "width": 376.6324337234297,
@@ -17,17 +17,23 @@
           "projections": [
             {
               "field": {
-                "Measure": {
+                "Aggregation": {
                   "Expression": {
-                    "SourceRef": {
-                      "Entity": "Libro de Excel"
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Principal Cenit"
+                        }
+                      },
+                      "Property": "Facturado"
                     }
                   },
-                  "Property": "Total Facturado"
+                  "Function": 0
                 }
               },
-              "queryRef": "Libro de Excel.Total Facturado",
-              "nativeQueryRef": "Total Facturado"
+              "queryRef": "Sum(Libro de Excel.Facturado)",
+              "nativeQueryRef": "Suma de Facturado",
+              "format": "\\$ #,0.###############;-\\$ #,0.###############;\\$ #,0.###############"
             }
           ]
         }
@@ -36,13 +42,18 @@
         "sort": [
           {
             "field": {
-              "Measure": {
+              "Aggregation": {
                 "Expression": {
-                  "SourceRef": {
-                    "Entity": "Libro de Excel"
+                  "Column": {
+                    "Expression": {
+                      "SourceRef": {
+                        "Entity": "Principal Cenit"
+                      }
+                    },
+                    "Property": "Facturado"
                   }
                 },
-                "Property": "Total Facturado"
+                "Function": 0
               }
             },
             "direction": "Descending"
@@ -139,34 +150,7 @@
             }
           },
           "selector": {
-            "metadata": "Libro de Excel.Total Facturado"
-          }
-        },
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            }
-          }
-        }
-      ],
-      "label": [
-        {
-          "properties": {
-            "show": {
-              "expr": {
-                "Literal": {
-                  "Value": "true"
-                }
-              }
-            }
-          },
-          "selector": {
-            "metadata": "Libro de Excel.Total Facturado"
+            "metadata": "Sum(Libro de Excel.Facturado)"
           }
         }
       ]

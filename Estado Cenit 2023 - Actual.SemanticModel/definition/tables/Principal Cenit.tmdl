@@ -1,27 +1,5 @@
-table 'Libro de Excel'
+table 'Principal Cenit'
 	lineageTag: f7fce06f-2cba-43bb-9aa9-3549e22a9c48
-
-	measure 'Total Facturado' = SUM('Libro de Excel'[Facturado])
-		formatString: \$\ #,0.###############;-\$\ #,0.###############;\$\ #,0.###############
-		lineageTag: 90cf10be-84f5-406d-a3c8-5f1d27a1c9dc
-
-		annotation PBI_FormatHint = {"currencyCulture":"es-CO"}
-
-	measure 'Total lecturas' = COUNTROWS('Libro de Excel')
-		formatString: \$#,0.###############;(\$#,0.###############);\$#,0.###############
-		lineageTag: f3caa204-4050-46a3-ba50-e4eb7fcb3980
-
-	measure 'Facturación RAPIDAS Y FURIOSAS' = CALCULATE([Total Facturado], 'Libro de Excel'[Modulo] = "RAPIDAS Y FURIOSAS")
-		formatString: \$\ #,0.###############;-\$\ #,0.###############;\$\ #,0.###############
-		lineageTag: 3c41391c-4a97-444f-97f1-d7da85b65271
-
-		annotation PBI_FormatHint = {"currencyCulture":"es-CO"}
-
-	measure 'Modulo Promedio' = DIVIDE([Total Facturado], [Total lecturas])
-		formatString: \$\ #,0.###############;-\$\ #,0.###############;\$\ #,0.###############
-		lineageTag: 8b8baf03-035c-4cc4-ba19-0579b3e76fa8
-
-		annotation PBI_FormatHint = {"currencyCulture":"es-CO"}
 
 	column Fecha
 		dataType: dateTime
@@ -87,10 +65,13 @@ table 'Libro de Excel'
 
 	column Equilibrio
 		dataType: decimal
+		isHidden
 		formatString: \$\ #,0.###############;-\$\ #,0.###############;\$\ #,0.###############
 		lineageTag: c759502c-afa2-4e4f-9131-abc3d36488a3
 		summarizeBy: sum
 		sourceColumn: Equilibrio
+
+		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -105,7 +86,25 @@ table 'Libro de Excel'
 
 		annotation SummarizationSetBy = Automatic
 
-	partition 'Libro de Excel' = m
+	column Cantidad
+		dataType: int64
+		formatString: 0
+		lineageTag: c11add24-c5e2-49e4-accb-eafe832b5a37
+		summarizeBy: sum
+		sourceColumn: Cantidad
+
+		annotation SummarizationSetBy = Automatic
+
+	column TiempoImproductivo
+		dataType: int64
+		formatString: 0
+		lineageTag: 55a44c71-1abb-4d4c-b04c-ccbda5c9ea40
+		summarizeBy: sum
+		sourceColumn: TiempoImproductivo
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Principal Cenit' = m
 		mode: import
 		source =
 				let
@@ -157,9 +156,13 @@ table 'Libro de Excel'
 				    #"Personalizada agregada" = Table.AddColumn(#"Tipo cambiado8", "Personalizado", each if [Eficiencia] > 5.0 then [Eficiencia] / 100 else [Eficiencia]),
 				    #"Tipo cambiado9" = Table.TransformColumnTypes(#"Personalizada agregada",{{"Personalizado", Percentage.Type}}),
 				    #"Columnas quitadas2" = Table.RemoveColumns(#"Tipo cambiado9",{"Eficiencia"}),
-				    #"Columnas con nombre cambiado3" = Table.RenameColumns(#"Columnas quitadas2",{{"Personalizado", "Eficiencia"}, {"Punto Equilibrio", "Equilibrio"}})
+				    #"Columnas con nombre cambiado3" = Table.RenameColumns(#"Columnas quitadas2",{{"Personalizado", "Eficiencia"}, {"Punto Equilibrio", "Equilibrio"}}),
+				    #"Consulta anexada" = Table.Combine({#"Columnas con nombre cambiado3", Sica}),
+				    #"Filas ordenadas2" = Table.Sort(#"Consulta anexada",{{"Fecha", Order.Descending}})
 				in
-				    #"Columnas con nombre cambiado3"
+				    #"Filas ordenadas2"
+
+	changedProperty = Name
 
 	annotation PBI_NavigationStepName = Navegación
 

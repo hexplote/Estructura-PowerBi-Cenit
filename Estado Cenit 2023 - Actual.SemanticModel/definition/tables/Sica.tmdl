@@ -1,0 +1,111 @@
+table Sica
+	excludeFromModelRefresh
+	lineageTag: 92147552-da50-4d7c-b849-bcb47c8cce6b
+
+	column Fecha
+		dataType: dateTime
+		formatString: Long Date
+		lineageTag: e63a3724-02b4-457a-bddd-77ca8f1aefdb
+		summarizeBy: none
+		sourceColumn: Fecha
+
+		variation Variación
+			isDefault
+			relationship: 7554d8fc-554b-4553-9b7e-905c99b6a143
+			defaultHierarchy: LocalDateTable_70335bb3-3fa0-4f42-ae95-de0783db98d8.'Jerarquía de fechas'
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Modulo
+		dataType: string
+		lineageTag: 23c0da54-704b-4382-a863-2304ccc37ebd
+		summarizeBy: none
+		sourceColumn: Modulo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Eficiencia
+		dataType: double
+		lineageTag: 62158dde-b011-4cf1-8041-61d7d3159bf6
+		summarizeBy: sum
+		sourceColumn: Eficiencia
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"isGeneralNumber":true}
+
+	column Cantidad
+		dataType: int64
+		formatString: 0
+		lineageTag: e20b45be-a933-4bf6-b6d8-11be0107da20
+		summarizeBy: sum
+		sourceColumn: Cantidad
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Minutos Instalados'
+		dataType: int64
+		formatString: 0
+		lineageTag: 260d3ae9-f4cd-412f-8752-44dee49be63c
+		summarizeBy: sum
+		sourceColumn: Minutos Instalados
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Minutos Producidos'
+		dataType: int64
+		formatString: 0
+		lineageTag: b3add3bd-132e-45b0-ab69-619067b9b5ee
+		summarizeBy: sum
+		sourceColumn: Minutos Producidos
+
+		annotation SummarizationSetBy = Automatic
+
+	column TiempoImproductivo
+		dataType: int64
+		formatString: 0
+		lineageTag: 1fdd5d7d-86c7-4fe3-9255-9fe93e1b8bc3
+		summarizeBy: sum
+		sourceColumn: TiempoImproductivo
+
+		annotation SummarizationSetBy = Automatic
+
+	column Facturado
+		dataType: decimal
+		formatString: \$\ #,0.###############;-\$\ #,0.###############;\$\ #,0.###############
+		lineageTag: d2efaef9-24ee-4b5f-a1e3-501272a5e8b3
+		summarizeBy: sum
+		sourceColumn: Facturado
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation PBI_FormatHint = {"currencyCulture":"es-CO"}
+
+	partition Sica = m
+		mode: import
+		source =
+				let
+				  Origen = Excel.Workbook(File.Contents("C:\Users\TALLER-TECNOLIDER\OneDrive\Escritorio\Study\Power BI\Listas Excel\Sica.xlsx"), null, true),
+				  #"Navegación 1" = Origen{[Item = "Hoja1", Kind = "Sheet"]}[Data],
+				  #"Tipo de columna cambiado" = Table.TransformColumnTypes(#"Navegación 1", {{"Column2", type text}}, "es"),
+				    #"Encabezados promovidos" = Table.PromoteHeaders(#"Tipo de columna cambiado", [PromoteAllScalars=true]),
+				    #"Tipo cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos",{{"Fecha", type any}, {"Modulo", type text}, {"ProductividadAfectada", type any}, {"Cantidad", type any}, {"ProductividadReal", type any}, {"TiempoInstalado", type any}, {"MinutosProducidos", type any}, {"TiempoImproductivo", type any}, {"TotalProducido", type any}}),
+				    #"Filas filtradas" = Table.SelectRows(#"Tipo cambiado", each [Fecha] <> null and [Fecha] <> ""),
+				    #"Tipo cambiado1" = Table.TransformColumnTypes(#"Filas filtradas",{{"Fecha", type date}}),
+				    #"Filas filtradas1" = Table.SelectRows(#"Tipo cambiado1", each true),
+				    #"Errores quitados" = Table.RemoveRowsWithErrors(#"Filas filtradas1", {"Fecha"}),
+				    #"Tipo cambiado2" = Table.TransformColumnTypes(#"Errores quitados",{{"ProductividadAfectada", Percentage.Type}}),
+				    #"Texto en mayúsculas" = Table.TransformColumns(#"Tipo cambiado2",{{"Modulo", Text.Upper, type text}}),
+				    #"Tipo cambiado3" = Table.TransformColumnTypes(#"Texto en mayúsculas",{{"Cantidad", Int64.Type}, {"ProductividadReal", Percentage.Type}}),
+				    #"Columnas quitadas" = Table.RemoveColumns(#"Tipo cambiado3",{"ProductividadReal"}),
+				    #"Tipo cambiado4" = Table.TransformColumnTypes(#"Columnas quitadas",{{"TiempoInstalado", Int64.Type}, {"MinutosProducidos", Int64.Type}, {"TiempoImproductivo", Int64.Type}, {"TotalProducido", Currency.Type}}),
+				    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Tipo cambiado4",{{"ProductividadAfectada", "Eficiencia"}, {"TiempoInstalado", "Minutos Instalados"}, {"MinutosProducidos", "Minutos Producidos"}, {"TotalProducido", "Facturado"}})
+				in
+				    #"Columnas con nombre cambiado"
+
+	annotation PBI_NavigationStepName = Navegación
+
+	annotation PBI_ResultType = Table
+

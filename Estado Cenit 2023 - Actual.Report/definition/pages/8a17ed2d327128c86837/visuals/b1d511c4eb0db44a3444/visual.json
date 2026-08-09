@@ -24,7 +24,7 @@
                         "PropertyVariationSource": {
                           "Expression": {
                             "SourceRef": {
-                              "Entity": "Libro de Excel"
+                              "Entity": "Principal Cenit"
                             }
                           },
                           "Name": "Variación",
@@ -50,7 +50,7 @@
                         "PropertyVariationSource": {
                           "Expression": {
                             "SourceRef": {
-                              "Entity": "Libro de Excel"
+                              "Entity": "Principal Cenit"
                             }
                           },
                           "Name": "Variación",
@@ -71,7 +71,7 @@
                 "Column": {
                   "Expression": {
                     "SourceRef": {
-                      "Entity": "Libro de Excel"
+                      "Entity": "Principal Cenit"
                     }
                   },
                   "Property": "Modulo"
@@ -87,7 +87,26 @@
                     "Column": {
                       "Expression": {
                         "SourceRef": {
-                          "Entity": "Libro de Excel"
+                          "Entity": "Principal Cenit"
+                        }
+                      },
+                      "Property": "Facturado"
+                    }
+                  },
+                  "Function": 0
+                }
+              },
+              "queryRef": "Sum(Libro de Excel.Facturado)",
+              "nativeQueryRef": "Suma de Facturado"
+            },
+            {
+              "field": {
+                "Aggregation": {
+                  "Expression": {
+                    "Column": {
+                      "Expression": {
+                        "SourceRef": {
+                          "Entity": "Principal Cenit"
                         }
                       },
                       "Property": "Equilibrio"
@@ -98,20 +117,6 @@
               },
               "queryRef": "Sum(Libro de Excel.Punto Equilibrio)",
               "nativeQueryRef": "Suma de Equilibrio"
-            },
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Libro de Excel"
-                    }
-                  },
-                  "Property": "Total Facturado"
-                }
-              },
-              "queryRef": "Libro de Excel.Total Facturado",
-              "nativeQueryRef": "Total Facturado"
             }
           ]
         }
@@ -127,7 +132,7 @@
                       "PropertyVariationSource": {
                         "Expression": {
                           "SourceRef": {
-                            "Entity": "Libro de Excel"
+                            "Entity": "Principal Cenit"
                           }
                         },
                         "Name": "Variación",
