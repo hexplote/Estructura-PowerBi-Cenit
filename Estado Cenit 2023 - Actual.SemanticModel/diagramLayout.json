@@ -10,8 +10,8 @@
       "nodes": [
         {
           "location": {
-            "x": 509,
-            "y": 9
+            "x": 45,
+            "y": 0
           },
           "nodeIndex": "Sica",
           "nodeLineageTag": "92147552-da50-4d7c-b849-bcb47c8cce6b",
@@ -19,12 +19,12 @@
             "height": 272,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 3
         },
         {
           "location": {
-            "x": 231,
-            "y": 12
+            "x": 369,
+            "y": 138.5
           },
           "nodeIndex": "Principal Cenit",
           "nodeLineageTag": "f7fce06f-2cba-43bb-9aa9-3549e22a9c48",
@@ -32,7 +32,19 @@
             "height": 272,
             "width": 234
           },
-          "zIndex": 0
+          "zIndex": 1
+        },
+        {
+          "location": {
+            "x": 638,
+            "y": 31
+          },
+          "nodeIndex": "Valor Minuto",
+          "size": {
+            "height": 128,
+            "width": 234
+          },
+          "zIndex": 2
         }
       ],
       "name": "Todas las tablas",

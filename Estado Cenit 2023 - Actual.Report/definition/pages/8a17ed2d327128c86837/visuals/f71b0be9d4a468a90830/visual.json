@@ -28,7 +28,7 @@
                             }
                           },
                           "Name": "Variación",
-                          "Property": "Fecha"
+                          "Property": "Fecha_Filtro"
                         }
                       },
                       "Hierarchy": "Jerarquía de fechas"
@@ -37,31 +37,14 @@
                   "Level": "Mes"
                 }
               },
-              "queryRef": "Libro de Excel.Fecha.Variación.Jerarquía de fechas.Mes",
-              "nativeQueryRef": "Fecha Mes",
+              "queryRef": "Principal Cenit.Fecha_Filtro.Variación.Jerarquía de fechas.Mes",
+              "nativeQueryRef": "Fecha_Filtro Mes",
               "active": true
             }
           ]
         }
       }
     },
-    "expansionStates": [
-      {
-        "roles": [
-          "Values"
-        ],
-        "levels": [
-          {
-            "queryRefs": [
-              "Libro de Excel.Fecha.Variación.Jerarquía de fechas.Mes"
-            ],
-            "isCollapsed": true,
-            "isPinned": true
-          }
-        ],
-        "root": {}
-      }
-    ],
     "objects": {
       "data": [
         {
@@ -78,7 +61,110 @@
       ],
       "general": [
         {
-          "properties": {}
+          "properties": {
+            "filter": {
+              "filter": {
+                "Version": 2,
+                "From": [
+                  {
+                    "Name": "l",
+                    "Entity": "LocalDateTable_4fa7ba32-e15e-4b54-b78d-cc2a28d2942d",
+                    "Type": 0
+                  }
+                ],
+                "Where": [
+                  {
+                    "Condition": {
+                      "In": {
+                        "Expressions": [
+                          {
+                            "Column": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Source": "l"
+                                }
+                              },
+                              "Property": "Mes"
+                            }
+                          }
+                        ],
+                        "Values": [
+                          [
+                            {
+                              "Literal": {
+                                "Value": "'agosto'"
+                              }
+                            }
+                          ]
+                        ]
+                      }
+                    },
+                    "Annotations": {
+                      "filterExpressionMetadata": {
+                        "expressions": [
+                          {
+                            "HierarchyLevel": {
+                              "Expression": {
+                                "Hierarchy": {
+                                  "Expression": {
+                                    "PropertyVariationSource": {
+                                      "Expression": {
+                                        "SourceRef": {
+                                          "Entity": "Principal Cenit"
+                                        }
+                                      },
+                                      "Name": "Variación",
+                                      "Property": "Fecha_Filtro"
+                                    }
+                                  },
+                                  "Hierarchy": "Jerarquía de fechas"
+                                }
+                              },
+                              "Level": "Mes"
+                            }
+                          }
+                        ],
+                        "decomposedIdentities": {
+                          "values": [
+                            [
+                              {
+                                "0": [
+                                  {
+                                    "Literal": {
+                                      "Value": "'agosto'"
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          ],
+                          "columns": [
+                            {
+                              "value": {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Entity": "LocalDateTable_4fa7ba32-e15e-4b54-b78d-cc2a28d2942d"
+                                    }
+                                  },
+                                  "Property": "Mes"
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "valueMap": [
+                          {
+                            "0": "agosto"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
         }
       ]
     },

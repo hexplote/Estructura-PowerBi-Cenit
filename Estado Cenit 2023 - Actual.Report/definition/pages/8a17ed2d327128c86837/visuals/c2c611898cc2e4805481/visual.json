@@ -17,57 +17,23 @@
           "projections": [
             {
               "field": {
-                "HierarchyLevel": {
+                "Column": {
                   "Expression": {
-                    "Hierarchy": {
-                      "Expression": {
-                        "PropertyVariationSource": {
-                          "Expression": {
-                            "SourceRef": {
-                              "Entity": "Principal Cenit"
-                            }
-                          },
-                          "Name": "Variación",
-                          "Property": "Fecha"
-                        }
-                      },
-                      "Hierarchy": "Jerarquía de fechas"
+                    "SourceRef": {
+                      "Entity": "Principal Cenit"
                     }
                   },
-                  "Level": "Año"
+                  "Property": "Fecha"
                 }
               },
               "queryRef": "Libro de Excel.Fecha.Variación.Jerarquía de fechas.Año",
               "nativeQueryRef": "Fecha Año",
               "active": true
-            },
-            {
-              "field": {
-                "HierarchyLevel": {
-                  "Expression": {
-                    "Hierarchy": {
-                      "Expression": {
-                        "PropertyVariationSource": {
-                          "Expression": {
-                            "SourceRef": {
-                              "Entity": "Principal Cenit"
-                            }
-                          },
-                          "Name": "Variación",
-                          "Property": "Fecha"
-                        }
-                      },
-                      "Hierarchy": "Jerarquía de fechas"
-                    }
-                  },
-                  "Level": "Mes"
-                }
-              },
-              "queryRef": "Libro de Excel.Fecha.Variación.Jerarquía de fechas.Mes",
-              "nativeQueryRef": "Fecha Mes",
-              "active": true
             }
           ]
+        },
+        "Rows": {
+          "projections": []
         },
         "Y": {
           "projections": [
@@ -100,17 +66,35 @@
                           "Entity": "Principal Cenit"
                         }
                       },
-                      "Property": "Equilibrio"
+                      "Property": "Punto Equilibrio"
                     }
                   },
                   "Function": 0
                 }
               },
-              "queryRef": "Sum(Libro de Excel.Equilibrio)",
-              "nativeQueryRef": "Suma de Equilibrio"
+              "queryRef": "Sum(Principal Cenit.Punto Equilibrio)",
+              "nativeQueryRef": "Suma de Punto Equilibrio"
             }
           ]
         }
+      },
+      "sortDefinition": {
+        "sort": [
+          {
+            "field": {
+              "Column": {
+                "Expression": {
+                  "SourceRef": {
+                    "Entity": "Principal Cenit"
+                  }
+                },
+                "Property": "Fecha"
+              }
+            },
+            "direction": "Ascending"
+          }
+        ],
+        "isDefaultSort": true
       }
     },
     "objects": {

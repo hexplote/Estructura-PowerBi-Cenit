@@ -44,14 +44,14 @@
                           "Entity": "Principal Cenit"
                         }
                       },
-                      "Property": "Eficiencia"
+                      "Property": "Punto Equilibrio"
                     }
                   },
                   "Function": 0
                 }
               },
-              "queryRef": "Sum(Libro de Excel.Eficiencia)",
-              "nativeQueryRef": "Suma de Eficiencia"
+              "queryRef": "Sum(Principal Cenit.Punto Equilibrio)",
+              "nativeQueryRef": "Suma de Punto Equilibrio"
             },
             {
               "field": {
@@ -63,14 +63,14 @@
                           "Entity": "Principal Cenit"
                         }
                       },
-                      "Property": "Facturado"
+                      "Property": "Eficiencia"
                     }
                   },
                   "Function": 0
                 }
               },
-              "queryRef": "Sum(Libro de Excel.Facturado)",
-              "nativeQueryRef": "Suma de Facturado"
+              "queryRef": "Sum(Principal Cenit.Eficiencia)",
+              "nativeQueryRef": "Suma de Eficiencia"
             }
           ]
         }
@@ -87,7 +87,7 @@
                         "Entity": "Principal Cenit"
                       }
                     },
-                    "Property": "Facturado"
+                    "Property": "Punto Equilibrio"
                   }
                 },
                 "Function": 0
@@ -95,7 +95,8 @@
             },
             "direction": "Descending"
           }
-        ]
+        ],
+        "isDefaultSort": true
       }
     },
     "objects": {

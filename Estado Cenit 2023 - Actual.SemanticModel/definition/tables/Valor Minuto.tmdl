@@ -1,0 +1,45 @@
+table 'Valor Minuto'
+	lineageTag: fa951235-e93a-4b87-bb9b-a64c4c4ca626
+
+	column Fecha
+		dataType: dateTime
+		isHidden
+		formatString: Long Date
+		lineageTag: 4fba03ef-4893-4371-b3f8-fbd40b8614b7
+		summarizeBy: none
+		sourceColumn: Fecha
+
+		variation Variación
+			isDefault
+			relationship: 7c39aa0c-3110-4fc6-8efa-fb73b07758a7
+			defaultHierarchy: LocalDateTable_a88e7674-e625-4426-aaba-73682d967726.'Jerarquía de fechas'
+
+		changedProperty = IsHidden
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column 'Valor Minuto'
+		dataType: int64
+		formatString: 0
+		lineageTag: 470f73f9-7c9c-42ca-bdfc-7baad3af615d
+		summarizeBy: sum
+		sourceColumn: Valor Minuto
+
+		annotation SummarizationSetBy = Automatic
+
+	partition 'Valor Minuto' = m
+		mode: import
+		source =
+				let
+				  Origen = Excel.Workbook(File.Contents("C:\Users\TALLER-TECNOLIDER\OneDrive\Escritorio\Study\Power BI\Listas Excel\Valor minuto.xlsx"), null, true),
+				  #"Navegación 1" = Origen{[Item = "Hoja1", Kind = "Sheet"]}[Data],
+				  #"Encabezados promovidos" = Table.PromoteHeaders(#"Navegación 1", [PromoteAllScalars = true]),
+				  #"Tipo de columna cambiado" = Table.TransformColumnTypes(#"Encabezados promovidos", {{"Fecha", type date}, {"Valor minuto", Int64.Type}}, "es"),
+				    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Tipo de columna cambiado",{{"Valor minuto", "Valor Minuto"}})
+				in
+				  #"Columnas con nombre cambiado"
+
+	changedProperty = Name
+

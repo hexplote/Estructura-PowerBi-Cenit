@@ -17,54 +17,17 @@
           "projections": [
             {
               "field": {
-                "HierarchyLevel": {
+                "Column": {
                   "Expression": {
-                    "Hierarchy": {
-                      "Expression": {
-                        "PropertyVariationSource": {
-                          "Expression": {
-                            "SourceRef": {
-                              "Entity": "Principal Cenit"
-                            }
-                          },
-                          "Name": "Variación",
-                          "Property": "Fecha"
-                        }
-                      },
-                      "Hierarchy": "Jerarquía de fechas"
+                    "SourceRef": {
+                      "Entity": "Principal Cenit"
                     }
                   },
-                  "Level": "Año"
+                  "Property": "Fecha"
                 }
               },
-              "queryRef": "Libro de Excel.Fecha.Variación.Jerarquía de fechas.Año",
-              "nativeQueryRef": "Fecha Año",
-              "format": "0"
-            },
-            {
-              "field": {
-                "HierarchyLevel": {
-                  "Expression": {
-                    "Hierarchy": {
-                      "Expression": {
-                        "PropertyVariationSource": {
-                          "Expression": {
-                            "SourceRef": {
-                              "Entity": "Principal Cenit"
-                            }
-                          },
-                          "Name": "Variación",
-                          "Property": "Fecha"
-                        }
-                      },
-                      "Hierarchy": "Jerarquía de fechas"
-                    }
-                  },
-                  "Level": "Mes"
-                }
-              },
-              "queryRef": "Libro de Excel.Fecha.Variación.Jerarquía de fechas.Mes",
-              "nativeQueryRef": "Fecha Mes"
+              "queryRef": "Principal Cenit.Fecha",
+              "nativeQueryRef": "Fecha"
             },
             {
               "field": {
@@ -109,14 +72,14 @@
                           "Entity": "Principal Cenit"
                         }
                       },
-                      "Property": "Equilibrio"
+                      "Property": "Punto Equilibrio"
                     }
                   },
                   "Function": 0
                 }
               },
-              "queryRef": "Sum(Libro de Excel.Punto Equilibrio)",
-              "nativeQueryRef": "Suma de Equilibrio"
+              "queryRef": "Sum(Principal Cenit.Punto Equilibrio)",
+              "nativeQueryRef": "Suma de Punto Equilibrio"
             }
           ]
         }
@@ -125,24 +88,13 @@
         "sort": [
           {
             "field": {
-              "HierarchyLevel": {
+              "Column": {
                 "Expression": {
-                  "Hierarchy": {
-                    "Expression": {
-                      "PropertyVariationSource": {
-                        "Expression": {
-                          "SourceRef": {
-                            "Entity": "Principal Cenit"
-                          }
-                        },
-                        "Name": "Variación",
-                        "Property": "Fecha"
-                      }
-                    },
-                    "Hierarchy": "Jerarquía de fechas"
+                  "SourceRef": {
+                    "Entity": "Principal Cenit"
                   }
                 },
-                "Level": "Año"
+                "Property": "Fecha"
               }
             },
             "direction": "Descending"
@@ -157,13 +109,27 @@
             "value": {
               "expr": {
                 "Literal": {
-                  "Value": "122.19536889261502D"
+                  "Value": "102.66006967947851D"
                 }
               }
             }
           },
           "selector": {
             "metadata": "Libro de Excel.Modulo"
+          }
+        },
+        {
+          "properties": {
+            "value": {
+              "expr": {
+                "Literal": {
+                  "Value": "114.21733953101196D"
+                }
+              }
+            }
+          },
+          "selector": {
+            "metadata": "Sum(Libro de Excel.Facturado)"
           }
         }
       ],

@@ -8,10 +8,9 @@ table 'Principal Cenit'
 		summarizeBy: none
 		sourceColumn: Fecha
 
-		variation Variación
-			isDefault
-			relationship: 3ba26907-6223-47c5-bc3d-448b82ad8d9c
-			defaultHierarchy: LocalDateTable_eb14df64-bf32-47c7-a3af-9531ad1154f9.'Jerarquía de fechas'
+		changedProperty = IsHidden
+
+		changedProperty = DataType
 
 		annotation SummarizationSetBy = Automatic
 
@@ -25,12 +24,12 @@ table 'Principal Cenit'
 
 		annotation SummarizationSetBy = Automatic
 
-	column Unidades
+	column Cantidad
 		dataType: int64
 		formatString: 0
 		lineageTag: 0f35143d-4d33-4361-be7e-99df36b810ab
 		summarizeBy: sum
-		sourceColumn: Unidades
+		sourceColumn: Cantidad
 
 		annotation SummarizationSetBy = Automatic
 
@@ -65,13 +64,10 @@ table 'Principal Cenit'
 
 	column Equilibrio
 		dataType: decimal
-		isHidden
 		formatString: \$\ #,0.###############;-\$\ #,0.###############;\$\ #,0.###############
 		lineageTag: c759502c-afa2-4e4f-9131-abc3d36488a3
 		summarizeBy: sum
 		sourceColumn: Equilibrio
-
-		changedProperty = IsHidden
 
 		annotation SummarizationSetBy = Automatic
 
@@ -86,23 +82,53 @@ table 'Principal Cenit'
 
 		annotation SummarizationSetBy = Automatic
 
-	column Cantidad
-		dataType: int64
+	column 'Valor Minuto Buscado' = RELATED('Valor Minuto'[Valor Minuto])
 		formatString: 0
-		lineageTag: c11add24-c5e2-49e4-accb-eafe832b5a37
+		lineageTag: e93d7f81-4e85-4c62-98c2-52afa02502f6
+		summarizeBy: none
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Punto Equilibrio' = 'Principal Cenit'[Minutos Instalados] * 'Principal Cenit'[Valor Minuto Buscado]
+		formatString: 0
+		lineageTag: 4c223728-0689-4115-b12a-82e0a145a143
 		summarizeBy: sum
-		sourceColumn: Cantidad
 
 		annotation SummarizationSetBy = Automatic
 
 	column TiempoImproductivo
 		dataType: int64
 		formatString: 0
-		lineageTag: 55a44c71-1abb-4d4c-b04c-ccbda5c9ea40
+		lineageTag: bba165ce-4831-4af1-8b7d-11a8fbacfb64
 		summarizeBy: sum
 		sourceColumn: TiempoImproductivo
 
 		annotation SummarizationSetBy = Automatic
+
+	column 'Valor minuto'
+		dataType: int64
+		formatString: 0
+		lineageTag: eb748ee1-5c36-4e9a-9acd-4d28f1f78631
+		summarizeBy: sum
+		sourceColumn: Valor minuto
+
+		annotation SummarizationSetBy = Automatic
+
+	column Fecha_Filtro = DATE(YEAR('Principal Cenit'[Fecha]), MONTH('Principal Cenit'[Fecha]), DAY('Principal Cenit'[Fecha]))
+		formatString: Long Date
+		lineageTag: 82304be6-1830-4e33-ab2d-07372d2a26c3
+		summarizeBy: none
+
+		variation Variación
+			isDefault
+			relationship: c393e808-f608-44a1-86a2-df35175380df
+			defaultHierarchy: LocalDateTable_4fa7ba32-e15e-4b54-b78d-cc2a28d2942d.'Jerarquía de fechas'
+
+		changedProperty = DataType
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
 
 	partition 'Principal Cenit' = m
 		mode: import
@@ -122,11 +148,10 @@ table 'Principal Cenit'
 				    #"Tipo cambiado1" = Table.TransformColumnTypes(#"Columnas quitadas1",{{"Fecha", type date}}),
 				    #"Errores quitados" = Table.RemoveRowsWithErrors(#"Tipo cambiado1", {"Fecha"}),
 				    #"Filas filtradas1" = Table.SelectRows(#"Errores quitados", each ([Fecha] <> null)),
-				    #"Columnas con nombre cambiado1" = Table.RenameColumns(#"Filas filtradas1",{{"Cantidad", "Unidades"}}),
-				    #"Tipo cambiado2" = Table.TransformColumnTypes(#"Columnas con nombre cambiado1",{{"Unidades", Int64.Type}, {"Tiempo Instalado", Int64.Type}}),
+				    #"Tipo cambiado2" = Table.TransformColumnTypes(#"Filas filtradas1",{{"Cantidad", Int64.Type}, {"Tiempo Instalado", Int64.Type}}),
 				    #"Columnas con nombre cambiado2" = Table.RenameColumns(#"Tipo cambiado2",{{"Tiempo Instalado", "Minutos Instalados"}, {"Productividad ", "Eficiencia"}, {"FACTURADO MODULO", "Facturado"}, {"FACTURACION ESPERADA", "Punto Equilibrio"}}),
 				    #"Tipo cambiado3" = Table.TransformColumnTypes(#"Columnas con nombre cambiado2",{{"Minutos Producidos", Int64.Type}, {"Eficiencia", Percentage.Type}}),
-				    #"Errores quitados1" = Table.RemoveRowsWithErrors(#"Tipo cambiado3", {"Unidades"}),
+				    #"Errores quitados1" = Table.RemoveRowsWithErrors(#"Tipo cambiado3", {"Cantidad"}),
 				    #"Errores quitados2" = Table.RemoveRowsWithErrors(#"Errores quitados1", {"Minutos Instalados"}),
 				    #"Errores quitados3" = Table.RemoveRowsWithErrors(#"Errores quitados2", {"Minutos Producidos"}),
 				    #"Errores quitados4" = Table.RemoveRowsWithErrors(#"Errores quitados3", {"Eficiencia"}),
@@ -140,7 +165,7 @@ table 'Principal Cenit'
 				    #"Filas ordenadas1" = Table.Sort(#"Filas filtradas3",{{"Eficiencia", Order.Descending}}),
 				    #"Valor reemplazado" = Table.ReplaceValue(#"Filas ordenadas1",91,91,Replacer.ReplaceValue,{"Eficiencia"}),
 				    #"Tipo cambiado6" = Table.TransformColumnTypes(#"Valor reemplazado",{{"Eficiencia", Percentage.Type}}),
-				    #"Filas filtradas4" = Table.SelectRows(#"Tipo cambiado6", each [Unidades] <> null and [Unidades] <> ""),
+				    #"Filas filtradas4" = Table.SelectRows(#"Tipo cambiado6", each [Cantidad] <> null and [Cantidad] <> ""),
 				    #"Filas filtradas5" = Table.SelectRows(#"Filas filtradas4", each [Minutos Instalados] <> null and [Minutos Instalados] <> ""),
 				    #"Filas filtradas6" = Table.SelectRows(#"Filas filtradas5", each [Minutos Producidos] <> null and [Minutos Producidos] <> ""),
 				    #"Valor reemplazado1" = Table.ReplaceValue(#"Filas filtradas6","RAPIDAS Y FURIOSAS","RAPIDAS Y FURIOSAS",Replacer.ReplaceValue,{"Modulo"}),
@@ -158,11 +183,13 @@ table 'Principal Cenit'
 				    #"Columnas quitadas2" = Table.RemoveColumns(#"Tipo cambiado9",{"Eficiencia"}),
 				    #"Columnas con nombre cambiado3" = Table.RenameColumns(#"Columnas quitadas2",{{"Personalizado", "Eficiencia"}, {"Punto Equilibrio", "Equilibrio"}}),
 				    #"Consulta anexada" = Table.Combine({#"Columnas con nombre cambiado3", Sica}),
-				    #"Filas ordenadas2" = Table.Sort(#"Consulta anexada",{{"Fecha", Order.Descending}})
+				    #"Filas ordenadas2" = Table.Sort(#"Consulta anexada",{{"Fecha", Order.Descending}}),
+				    #"Personalizada agregada1" = Table.AddColumn(#"Filas ordenadas2", "Valor minuto", each [Equilibrio]/[Minutos Instalados]),
+				    #"Tipo cambiado10" = Table.TransformColumnTypes(#"Personalizada agregada1",{{"Valor minuto", Int64.Type}}),
+				    #"Filas filtradas10" = Table.SelectRows(#"Tipo cambiado10", each true),
+				    #"Filas ordenadas3" = Table.Sort(#"Filas filtradas10",{{"Eficiencia", Order.Descending}, {"Fecha", Order.Descending}})
 				in
-				    #"Filas ordenadas2"
-
-	changedProperty = Name
+				    #"Filas ordenadas3"
 
 	annotation PBI_NavigationStepName = Navegación
 

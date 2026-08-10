@@ -28,7 +28,7 @@
                             }
                           },
                           "Name": "Variación",
-                          "Property": "Fecha"
+                          "Property": "Fecha_Filtro"
                         }
                       },
                       "Hierarchy": "Jerarquía de fechas"
@@ -37,24 +37,9 @@
                   "Level": "Año"
                 }
               },
-              "queryRef": "Libro de Excel.Fecha.Variación.Jerarquía de fechas.Año",
-              "nativeQueryRef": "Fecha Año",
+              "queryRef": "Principal Cenit.Fecha_Filtro.Variación.Jerarquía de fechas.Año",
+              "nativeQueryRef": "Fecha_Filtro Año",
               "active": true
-            },
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "Principal Cenit"
-                    }
-                  },
-                  "Property": "Equilibrio"
-                }
-              },
-              "queryRef": "Libro de Excel.Equilibrio",
-              "nativeQueryRef": "Equilibrio",
-              "active": false
             }
           ]
         }
@@ -74,7 +59,7 @@
                           }
                         },
                         "Name": "Variación",
-                        "Property": "Fecha"
+                        "Property": "Fecha_Filtro"
                       }
                     },
                     "Hierarchy": "Jerarquía de fechas"
@@ -89,41 +74,6 @@
         "isDefaultSort": true
       }
     },
-    "expansionStates": [
-      {
-        "roles": [
-          "Values"
-        ],
-        "levels": [
-          {
-            "queryRefs": [
-              "Libro de Excel.Fecha.Variación.Jerarquía de fechas.Año"
-            ],
-            "isCollapsed": true,
-            "identityKeys": [
-              {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "LocalDateTable_eb14df64-bf32-47c7-a3af-9531ad1154f9"
-                    }
-                  },
-                  "Property": "Año"
-                }
-              }
-            ],
-            "isPinned": true
-          },
-          {
-            "queryRefs": [
-              "Libro de Excel.Equilibrio"
-            ],
-            "isCollapsed": true
-          }
-        ],
-        "root": {}
-      }
-    ],
     "objects": {
       "data": [
         {
@@ -140,7 +90,110 @@
       ],
       "general": [
         {
-          "properties": {}
+          "properties": {
+            "filter": {
+              "filter": {
+                "Version": 2,
+                "From": [
+                  {
+                    "Name": "l",
+                    "Entity": "LocalDateTable_4fa7ba32-e15e-4b54-b78d-cc2a28d2942d",
+                    "Type": 0
+                  }
+                ],
+                "Where": [
+                  {
+                    "Condition": {
+                      "In": {
+                        "Expressions": [
+                          {
+                            "Column": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Source": "l"
+                                }
+                              },
+                              "Property": "Año"
+                            }
+                          }
+                        ],
+                        "Values": [
+                          [
+                            {
+                              "Literal": {
+                                "Value": "2026L"
+                              }
+                            }
+                          ]
+                        ]
+                      }
+                    },
+                    "Annotations": {
+                      "filterExpressionMetadata": {
+                        "expressions": [
+                          {
+                            "HierarchyLevel": {
+                              "Expression": {
+                                "Hierarchy": {
+                                  "Expression": {
+                                    "PropertyVariationSource": {
+                                      "Expression": {
+                                        "SourceRef": {
+                                          "Entity": "Principal Cenit"
+                                        }
+                                      },
+                                      "Name": "Variación",
+                                      "Property": "Fecha_Filtro"
+                                    }
+                                  },
+                                  "Hierarchy": "Jerarquía de fechas"
+                                }
+                              },
+                              "Level": "Año"
+                            }
+                          }
+                        ],
+                        "decomposedIdentities": {
+                          "values": [
+                            [
+                              {
+                                "0": [
+                                  {
+                                    "Literal": {
+                                      "Value": "2026L"
+                                    }
+                                  }
+                                ]
+                              }
+                            ]
+                          ],
+                          "columns": [
+                            {
+                              "value": {
+                                "Column": {
+                                  "Expression": {
+                                    "SourceRef": {
+                                      "Entity": "LocalDateTable_4fa7ba32-e15e-4b54-b78d-cc2a28d2942d"
+                                    }
+                                  },
+                                  "Property": "Año"
+                                }
+                              }
+                            }
+                          ]
+                        },
+                        "valueMap": [
+                          {
+                            "0": "2026"
+                          }
+                        ]
+                      }
+                    }
+                  }
+                ]
+              }
+            }
+          }
         }
       ]
     },

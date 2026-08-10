@@ -101,9 +101,12 @@ table Sica
 				    #"Tipo cambiado3" = Table.TransformColumnTypes(#"Texto en mayúsculas",{{"Cantidad", Int64.Type}, {"ProductividadReal", Percentage.Type}}),
 				    #"Columnas quitadas" = Table.RemoveColumns(#"Tipo cambiado3",{"ProductividadReal"}),
 				    #"Tipo cambiado4" = Table.TransformColumnTypes(#"Columnas quitadas",{{"TiempoInstalado", Int64.Type}, {"MinutosProducidos", Int64.Type}, {"TiempoImproductivo", Int64.Type}, {"TotalProducido", Currency.Type}}),
-				    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Tipo cambiado4",{{"ProductividadAfectada", "Eficiencia"}, {"TiempoInstalado", "Minutos Instalados"}, {"MinutosProducidos", "Minutos Producidos"}, {"TotalProducido", "Facturado"}})
+				    #"Columnas con nombre cambiado" = Table.RenameColumns(#"Tipo cambiado4",{{"ProductividadAfectada", "Eficiencia"}, {"TiempoInstalado", "Minutos Instalados"}, {"MinutosProducidos", "Minutos Producidos"}, {"TotalProducido", "Facturado"}, {"Cantidad", "Cantidad"}}),
+				    #"Tipo cambiado5" = Table.TransformColumnTypes(#"Columnas con nombre cambiado",{{"Eficiencia", Int64.Type}}),
+				    #"Columna dividida" = Table.TransformColumns(#"Tipo cambiado5", {{"Eficiencia", each _ / 100, type number}}),
+				    #"Tipo cambiado6" = Table.TransformColumnTypes(#"Columna dividida",{{"Eficiencia", Percentage.Type}})
 				in
-				    #"Columnas con nombre cambiado"
+				    #"Tipo cambiado6"
 
 	annotation PBI_NavigationStepName = Navegación
 

@@ -3,7 +3,7 @@
   "name": "ac1c66750b5028565046",
   "position": {
     "x": 698.23740148077388,
-    "y": 15.896823501313589,
+    "y": 14.673990924289468,
     "z": 7000,
     "height": 86.821112968712683,
     "width": 185.87055170766658,
@@ -23,34 +23,17 @@
                       "Entity": "Principal Cenit"
                     }
                   },
-                  "Property": "Equilibrio"
+                  "Property": "Cantidad"
                 }
               },
-              "queryRef": "Libro de Excel.Equilibrio",
-              "nativeQueryRef": "Equilibrio",
+              "queryRef": "Principal Cenit.Cantidad",
+              "nativeQueryRef": "Cantidad",
               "active": true
             }
           ]
         }
       }
     },
-    "expansionStates": [
-      {
-        "roles": [
-          "Values"
-        ],
-        "levels": [
-          {
-            "queryRefs": [
-              "Libro de Excel.Equilibrio"
-            ],
-            "isCollapsed": true,
-            "isPinned": true
-          }
-        ],
-        "root": {}
-      }
-    ],
     "objects": {
       "data": [
         {

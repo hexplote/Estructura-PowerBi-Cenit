@@ -2,8 +2,8 @@
   "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.11.0/schema.json",
   "name": "65ad3fedcbe2a2d2e197",
   "position": {
-    "x": 884.10795318844043,
-    "y": 15.896823501313589,
+    "x": 1069.9785048961071,
+    "y": 14.673990924289468,
     "z": 8000,
     "height": 86.821112968712683,
     "width": 185.87055170766658,
@@ -23,34 +23,17 @@
                       "Entity": "Principal Cenit"
                     }
                   },
-                  "Property": "Facturado"
+                  "Property": "Eficiencia"
                 }
               },
-              "queryRef": "Libro de Excel.Facturado",
-              "nativeQueryRef": "Facturado",
+              "queryRef": "Principal Cenit.Eficiencia",
+              "nativeQueryRef": "Eficiencia",
               "active": true
             }
           ]
         }
       }
     },
-    "expansionStates": [
-      {
-        "roles": [
-          "Values"
-        ],
-        "levels": [
-          {
-            "queryRefs": [
-              "Libro de Excel.Facturado"
-            ],
-            "isCollapsed": true,
-            "isPinned": true
-          }
-        ],
-        "root": {}
-      }
-    ],
     "objects": {
       "data": [
         {
@@ -63,6 +46,11 @@
               }
             }
           }
+        }
+      ],
+      "general": [
+        {
+          "properties": {}
         }
       ]
     },
